@@ -10,3 +10,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/mail', [\App\Http\Controllers\UtilsController::class, 'mail']);
     Route::post('/', [\App\Http\Controllers\PricesController::class, 'store'])->name('prices.store');
 });
+
+// Enable this if the hosting does not provide a way to run cronjob
+Route::get('/jobs', function () {
+    return Artisan::call('queue:work --stop-when-empty');
+});
